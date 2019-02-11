@@ -19,8 +19,8 @@ namespace Services.ProductAPIServices
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-             .UseUrls("http://localhost:9002");
+                .UseStartup<Startup>();
+             
 
         //public static IWebHost BuildWebHost(string[] args) =>
         //WebHost.CreateDefaultBuilder(args)

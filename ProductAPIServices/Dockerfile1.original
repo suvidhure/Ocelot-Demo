@@ -1,7 +1,10 @@
-FROM base AS final
+FROM microsoft/dotnet:2.1.0-runtime
+ARG source
 WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
+EXPOSE 80
+COPY ${source:-obj/Docker/publish} .
+ENTRYPOINT ["dotnet", "ProductAPIServices.dll"]
+
 
 FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
@@ -18,4 +21,4 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/dotnet:aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
+ENTRYPOINT ["dotnet", "DemoCore.dll"]

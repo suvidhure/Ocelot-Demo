@@ -1,21 +1,18 @@
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+WORKDIR /app
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY CustomerAPIServices/CustomerAPIServices.csproj CustomerAPIServices/
+RUN dotnet restore CustomerAPIServices/CustomerAPIServices.csproj
+COPY . .
+WORKDIR /src/CustomerAPIServices
+RUN dotnet build CustomerAPIServices.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish CustomerAPIServices.csproj -c Release -o /app
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "CustomerAPIServices.dll"]
-
-FROM microsoft/dotnet:sdk AS build-env
-WORKDIR /app
-
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
-
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-# Build runtime image
-FROM microsoft/dotnet:aspnetcore-runtime
-WORKDIR /app
-COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "CustomerAPIServices.dll"]

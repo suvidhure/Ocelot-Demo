@@ -1,7 +1,7 @@
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
+ENTRYPOINT ["dotnet", "ProductAPIServices.dll"]
 
 FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
@@ -18,4 +18,4 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/dotnet:aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
+ENTRYPOINT ["dotnet", "ProductAPIServices.dll"]

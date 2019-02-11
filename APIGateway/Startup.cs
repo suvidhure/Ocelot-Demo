@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using System;
+using System.IO;
 
 namespace APIGateway
 {
@@ -19,7 +20,7 @@ namespace APIGateway
             var builder = new Microsoft.Extensions.Configuration.ConfigurationBuilder();
             builder.SetBasePath(env.ContentRootPath)
                    //add configuration.json  
-                   .AddJsonFile("configuration.json", optional: false, reloadOnChange: true)
+                   .AddJsonFile(Path.Combine("configuration", "configuration.json"), optional: false, reloadOnChange: true)
                    .AddEnvironmentVariables();
             Configuration = builder.Build();
         }

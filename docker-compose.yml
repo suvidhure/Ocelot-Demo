@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  customerapiservices:
+    image: ${DOCKER_REGISTRY-}customerapiservices
+    build:
+      context: .
+      dockerfile: CustomerAPIServices/Dockerfile
+
+  productapiservices:
+    image: ${DOCKER_REGISTRY-}productapiservices
+    build:
+      context: .
+      dockerfile: ProductAPIServices/Dockerfile
+
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
+
