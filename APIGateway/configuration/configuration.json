@@ -1,36 +1,12 @@
 {
   "ReRoutes": [
-    {
-      "DownstreamPathTemplate": "/api/customer",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "192.168.99.101",
-          "Port": 5201
-        }
-      ],
-      "UpstreamPathTemplate": "/api/customer",
-      "UpstreamHttpMethod": [ "Get" ]
-
-    },
-    {
-      "DownstreamPathTemplate": "/api/customer/{id}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "192.168.99.101",
-          "Port": 5201
-        }
-      ],
-      "UpstreamPathTemplate": "/api/customer/{id}",
-      "UpstreamHttpMethod": [ "Get" ]
-    },
+    
     {
       "DownstreamPathTemplate": "/api/products",
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "192.168.99.101",
+          "Host": "192.168.99.100",
           "Port": 5202
         }
       ],

@@ -25,7 +25,11 @@ namespace Services.CustomerAPIServices
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+                .AddCustomMVC(Configuration)
+                ;
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +46,28 @@ namespace Services.CustomerAPIServices
 
             app.UseHttpsRedirection();
             app.UseMvc();
+        }
+    }
+
+    public static class CustomExtensionMethods
+    {
+
+
+        public static IServiceCollection AddCustomMVC(this IServiceCollection services, IConfiguration configuration)
+        {
+
+            services.AddMvc().AddControllersAsServices();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+
+            return services;
         }
 
     }

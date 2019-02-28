@@ -1,0 +1,27 @@
+﻿@model WebMvc.ViewModels.ProductViewModel.IndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <div class="esh-catalog-items row">
+        @foreach (var productItem in Model.ProductItems)
+        {
+            <div class="esh-catalog-item col-md-4">
+                @productItem.Id
+            </div>
+            <div>
+                @productItem.Name
+            </div>
+        }
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>

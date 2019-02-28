@@ -1,21 +1,20 @@
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY WebMvc/WebMvc.csproj WebMvc/
+RUN dotnet restore WebMvc/WebMvc.csproj
+COPY . .
+WORKDIR /src/WebMvc
+RUN dotnet build WebMvc.csproj -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish WebMvc.csproj -c Release -o /app
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
-
-FROM microsoft/dotnet:sdk AS build-env
-WORKDIR /app
-
-# Copy csproj and restore as distinct layers
-COPY *.csproj ./
-RUN dotnet restore
-
-# Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
-
-# Build runtime image
-FROM microsoft/dotnet:aspnetcore-runtime
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "webmvc.dll"]
+ENTRYPOINT ["dotnet", "WebMvc.dll"]

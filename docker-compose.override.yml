@@ -1,14 +1,7 @@
 version: '3.4'
 
 services:
-  customerapiservices:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    ports:
-      - "5201:80"
-    volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  
   productapiservices:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -23,6 +16,18 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5203:80"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+  
+  webmvc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+     
+    ports:
+      - "5204:80"
+      
     volumes:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro

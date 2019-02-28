@@ -1,12 +1,7 @@
 version: '3.4'
 
 services:
-  customerapiservices:
-    image: ${DOCKER_REGISTRY-}customerapiservices
-    build:
-      context: .
-      dockerfile: CustomerAPIServices/Dockerfile
-
+  
   productapiservices:
     image: ${DOCKER_REGISTRY-}productapiservices
     build:
@@ -19,4 +14,12 @@ services:
     build:
       context: .
       dockerfile: APIGateway/Dockerfile
+
+
+  
+  webmvc:
+    image: ${DOCKER_REGISTRY-}webmvc
+    build:
+      context: .
+      dockerfile: WebMvc/Dockerfile
 
